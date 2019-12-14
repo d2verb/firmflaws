@@ -19,7 +19,7 @@ def parse_elf(workspace, file):
     r2 = r2pipe.open(file.filepath)
     r2.cmd("aa")
     r2.cmd("afl")
-    result = r2.cmd("agC")
+    result = r2.cmd("agCd")
     output_dir = os.path.join(workspace, "graphs")
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
