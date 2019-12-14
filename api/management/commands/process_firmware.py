@@ -23,18 +23,20 @@ class Command(BaseCommand):
 
         if not os.path.isfile(process_lock):
             Path(process_lock).touch()
-            while True:
-                try:
-                    self.firmware = FirmwareModel.objects.filter(status="waiting")[0]
+            try:
+                while True:
                     try:
-                        self.run()
-                    except:
-                        self.firmware.status = "failed"
-                        self.firmware.save()
-                except IndexError:
-                    self.stdout.write("No waiting firmwares")
-                    break
-            os.remove(process_lock)
+                        self.firmware = FirmwareModel.objects.filter(status="waiting")[0]
+                        try:
+                            self.run()
+                        except:
+                            self.firmware.status = "failed"
+                            self.firmware.save()
+                    except IndexError:
+                        self.stdout.write("No waiting firmwares")
+                        break
+            finally:
+                os.remove(process_lock)
 
     def run(self):
         self.workspace = self.firmware.filepath.replace("firmware", "")
