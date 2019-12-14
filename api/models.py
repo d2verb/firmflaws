@@ -8,7 +8,7 @@ class BrandModel(models.Model):
 
 
 class FirmwareModel(models.Model):
-    brand = models.ForeignKey(BrandModel, related_name="firmwares")
+    brand = models.ForeignKey(BrandModel, related_name="firmwares", on_delete=models.CASCADE)
     hash = models.CharField(unique=True, max_length=32)
     status = models.CharField(max_length=20, default="waiting")
     name = models.CharField(max_length=255)
@@ -41,6 +41,6 @@ class LootTypeModel(models.Model):
 
 
 class LootModel(models.Model):
-    file = models.ForeignKey(FileModel, related_name="loots")
-    type = models.ForeignKey(LootTypeModel, related_name="loots")
+    file = models.ForeignKey(FileModel, related_name="loots", on_delete=models.CASCADE)
+    type = models.ForeignKey(LootTypeModel, related_name="loots", on_delete=models.CASCADE)
     info = models.TextField(null=True, blank=True)

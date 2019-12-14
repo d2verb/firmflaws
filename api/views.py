@@ -56,7 +56,7 @@ def api_upload(request):
 
     try:
         firmware_obj.save()
-        #start_process_thread()
+        start_process_thread()
         from django.core.management import call_command
         call_command('process_firmware')
         return JsonResponse({"status": "new", "hash": firmware_obj.hash})

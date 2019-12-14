@@ -1,6 +1,0 @@
-pydot
-Django
-binwalk
-r2pipe
-python-magic
-django-cors-headers

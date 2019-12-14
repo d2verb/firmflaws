@@ -44,14 +44,13 @@ INSTALLED_APPS = [
     'django_cleanup',
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'firmflaws.settings.NonHtmlDebugToolbarMiddleware',
@@ -125,7 +124,9 @@ USE_TZ = True
 
 import json
 from django.http import HttpResponse
-class NonHtmlDebugToolbarMiddleware(object):
+from django.utils.deprecation import MiddlewareMixin
+
+class NonHtmlDebugToolbarMiddleware(MiddlewareMixin):
     """
     The Django Debug Toolbar usually only works for views that return HTML.
     This middleware wraps any non-HTML response in HTML if the request
